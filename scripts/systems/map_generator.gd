@@ -1,8 +1,10 @@
 extends Node
 class_name MapGenerator
 
+# 房间类型枚举
 enum RoomType { BATTLE, ELITE, EVENT, SHOP, REPAIR, TREASURE, BOSS }
 
+# 根据楼层配置生成二维地图
 func generate_floor(config: FloorConfigData) -> Array:
 	var rows := config.rows
 	var cols := config.cols
@@ -14,11 +16,13 @@ func generate_floor(config: FloorConfigData) -> Array:
 			row.append(_roll_room_type(config, r, rows))
 		grid.append(row)
 
+	# 最后一行固定 Boss
 	for c in range(cols):
 		grid[rows - 1][c] = RoomType.BOSS
 
 	return grid
 
+# 按权重随机房间
 func _roll_room_type(config: FloorConfigData, row: int, rows: int) -> RoomType:
 	if row == rows - 1:
 		return RoomType.BOSS
@@ -38,6 +42,7 @@ func _roll_room_type(config: FloorConfigData, row: int, rows: int) -> RoomType:
 
 	return pool.pick_random()
 
+# 字符串转枚举
 func _room_type_from_key(key: String) -> RoomType:
 	match key:
 		"ELITE":
