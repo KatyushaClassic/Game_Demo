@@ -2,10 +2,37 @@
 set -euo pipefail
 
 # 扫描仓库中的 Git 冲突标记，避免把冲突内容提交到远端。
-# 只匹配“单独成行”的冲突标记，避免误报普通文档文本。
-if rg -n "^<{7}|^={7}$|^>{7}" . -g '!tools/check_conflict_markers.sh'; then
-  echo "[ERROR] 检测到冲突标记，请先清理后再提交。" >&2
-  exit 1
-fi
+# 这里不用直接写冲突符号文本，避免某些平台误判。
+python - <<'PY'
+from pathlib import Path
 
-echo "[OK] 未检测到冲突标记。"
+root = Path('.')
+ignore = {Path('tools/check_conflict_markers.sh'), Path('.git')}
+
+left = chr(60) * 7
+mid = chr(61) * 7
+right = chr(62) * 7
+
+hit = False
+for p in root.rglob('*'):
+    if not p.is_file():
+        continue
+    rel = p.relative_to(root)
+    if rel.parts and rel.parts[0] == '.git':
+        continue
+    if rel in ignore:
+        continue
+    try:
+        text = p.read_text(encoding='utf-8')
+    except Exception:
+        continue
+
+    for i, line in enumerate(text.splitlines(), start=1):
+        if line.startswith(left) or line == mid or line.startswith(right):
+            print(f"{rel}:{i}:{line}")
+            hit = True
+
+if hit:
+    raise SystemExit(1)
+print('[OK] 未检测到冲突标记。')
+PY
