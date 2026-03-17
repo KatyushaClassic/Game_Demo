@@ -47,3 +47,10 @@
 bash tools/check_godot_env.sh
 ```
 
+## 提交前检查（推荐）
+
+在提交前额外执行一次冲突标记扫描：
+
+```bash
+bash tools/check_conflict_markers.sh
+```
