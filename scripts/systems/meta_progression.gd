@@ -1,26 +1,54 @@
 extends Node
 class_name MetaProgression
 
+# 当前可用评分
 var score_currency: int = 0
+
+# 当前成长等级
 var unlock_level: int = 1
+
+# 已解锁内容
 var unlocked_block_ids: Array[String] = []
 var unlocked_core_ids: Array[String] = []
 
+# 等级配置表：key=level, value=MetaLevelData
+var level_table: Dictionary = {}
+
+# 设置等级配置
+func set_level_table(level_list: Array[MetaLevelData]) -> void:
+	level_table.clear()
+	for info in level_list:
+		level_table[info.level] = info
+
+# 结算本局分数
 func add_run_score(score: int) -> void:
 	score_currency += max(score, 0)
 
-func can_level_up(cost: int) -> bool:
-	return score_currency >= cost
-
-func level_up(cost: int, reward_blocks: Array[String], reward_cores: Array[String]) -> bool:
-	if not can_level_up(cost):
+# 是否可升到下一等级
+func can_level_up() -> bool:
+	var target_level := unlock_level + 1
+	var info: MetaLevelData = level_table.get(target_level)
+	if info == null:
 		return false
-	score_currency -= cost
-	unlock_level += 1
-	for id in reward_blocks:
+	return score_currency >= info.upgrade_cost
+
+# 升级并发放奖励
+func level_up() -> bool:
+	if not can_level_up():
+		return false
+
+	var target_level := unlock_level + 1
+	var info: MetaLevelData = level_table[target_level]
+
+	score_currency -= info.upgrade_cost
+	unlock_level = target_level
+
+	for id in info.reward_block_ids:
 		if id not in unlocked_block_ids:
 			unlocked_block_ids.append(id)
-	for id in reward_cores:
+
+	for id in info.reward_core_ids:
 		if id not in unlocked_core_ids:
 			unlocked_core_ids.append(id)
+
 	return true

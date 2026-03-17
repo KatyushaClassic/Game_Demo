@@ -24,6 +24,7 @@
 ## 目录结构
 
 - `docs/gdd.md`：完整系统设计
+- `docs/newbie_step_by_step.md`：新手逐步实作（节点挂载 + Resource 数据）
 - `scripts/data/block_data.gd`：方块基础数据定义
 - `scripts/systems/ship_builder.gd`：飞船拼装与合法性校验
 - `scripts/systems/weapon_group_manager.gd`：武器组与自动开火控制
@@ -36,3 +37,20 @@
 
 - Godot 4.x
 - 语言：GDScript
+
+## 环境配置
+
+- 如果你是 **Windows** 开发者，不需要切换到 Ubuntu。
+- 先按 `docs/setup_environment.md` 完成 Godot 4 环境配置，再执行一键检查脚本。
+
+```bash
+bash tools/check_godot_env.sh
+```
+
+## 提交前检查（推荐）
+
+在提交前额外执行一次冲突标记扫描：
+
+```bash
+bash tools/check_conflict_markers.sh
+```
