@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 扫描仓库中的 Git 冲突标记，避免把冲突内容提交到远端。
-# 这里不用直接写冲突符号文本，避免某些平台误判。
 python - <<'PY'
 from pathlib import Path
 
