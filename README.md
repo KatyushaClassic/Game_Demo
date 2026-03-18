@@ -54,3 +54,9 @@ bash tools/check_godot_env.sh
 ```bash
 bash tools/check_conflict_markers.sh
 ```
+
+## 场景入口
+
+- 主场景：`scenes/main_menu.tscn`
+- 启动后可通过 UI 按钮进入：系统场景、地图场景、战斗场景、局外成长场景
+
