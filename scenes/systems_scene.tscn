@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://systemsscene"]
+
+[ext_resource type="Script" path="res://scripts/ui/scene_nav.gd" id="1_nav"]
+[ext_resource type="Script" path="res://scripts/systems/ship_builder.gd" id="2_ship"]
+[ext_resource type="Script" path="res://scripts/systems/weapon_group_manager.gd" id="3_weapon"]
+[ext_resource type="Script" path="res://scripts/systems/special_module_manager.gd" id="4_special"]
+[ext_resource type="Script" path="res://scripts/systems/synthesis_system.gd" id="5_synthesis"]
+[ext_resource type="Script" path="res://scripts/systems/map_generator.gd" id="6_map"]
+[ext_resource type="Script" path="res://scripts/systems/meta_progression.gd" id="7_meta"]
+
+[node name="SystemsScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nav")
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -160.0
+offset_right = 220.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+text = "系统脚本已挂载到节点"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="VBox"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="SystemsRoot" type="Node" parent="."]
+
+[node name="ShipBuilderSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("2_ship")
+
+[node name="WeaponSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("3_weapon")
+
+[node name="SpecialSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("4_special")
+
+[node name="SynthesisSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("5_synthesis")
+
+[node name="MapSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("6_map")
+
+[node name="MetaSystem" type="Node" parent="SystemsRoot"]
+script = ExtResource("7_meta")
+
+[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
