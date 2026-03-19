@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BlockData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/block_data.gd" id="1_block"]
+
+[resource]
+script = ExtResource("1_block")
+id = "example_thruster_block"
+display_name = "示例推进器"
+block_type = 2
+rarity = 1
+size = Vector2i(1, 1)
+max_hp = 90
+tags = Array[String](["thruster", "mobility"])
+thrust_forward = 1.0
+thrust_backward = 0.4
+thrust_direction = Vector2i(0, -1)

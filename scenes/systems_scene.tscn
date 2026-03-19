@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://systemsscene"]
+[gd_scene load_steps=10 format=3 uid="uid://systemsscene"]
 
 [ext_resource type="Script" path="res://scripts/ui/scene_nav.gd" id="1_nav"]
 [ext_resource type="Script" path="res://scripts/systems/ship_builder.gd" id="2_ship"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/systems/synthesis_system.gd" id="5_synthesis"]
 [ext_resource type="Script" path="res://scripts/systems/map_generator.gd" id="6_map"]
 [ext_resource type="Script" path="res://scripts/systems/meta_progression.gd" id="7_meta"]
+[ext_resource type="Script" path="res://scripts/ui/components/example_block_card.gd" id="8_card"]
+[ext_resource type="Resource" path="res://resources/examples/blocks/example_cover_block.tres" id="9_cover"]
 
 [node name="SystemsScene" type="Control"]
 layout_mode = 3
@@ -17,29 +19,68 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nav")
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -160.0
-offset_right = 220.0
-offset_bottom = 160.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="LeftPanel" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="VBox"]
+[node name="Title" type="Label" parent="HBox/LeftPanel"]
 layout_mode = 2
 text = "系统脚本已挂载到节点"
 horizontal_alignment = 1
 
-[node name="Back" type="Button" parent="VBox"]
+[node name="Desc" type="Label" parent="HBox/LeftPanel"]
+layout_mode = 2
+text = "这里集中挂载拼装、武器组、特殊方块、合成、地图、成长系统。"
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="HBox/LeftPanel"]
 layout_mode = 2
 text = "返回主菜单"
+
+[node name="ExampleCard" type="PanelContainer" parent="HBox"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("8_card")
+block_data = ExtResource("9_cover")
+
+[node name="Margin" type="MarginContainer" parent="HBox/ExampleCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HBox/ExampleCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+text = "示例方块"
+
+[node name="Body" type="RichTextLabel" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+scroll_active = false
+text = "加载中..."
 
 [node name="SystemsRoot" type="Node" parent="."]
 
@@ -61,4 +102,4 @@ script = ExtResource("6_map")
 [node name="MetaSystem" type="Node" parent="SystemsRoot"]
 script = ExtResource("7_meta")
 
-[connection signal="pressed" from="VBox/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="HBox/LeftPanel/Back" to="." method="_on_back_pressed"]

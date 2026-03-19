@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BlockData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/block_data.gd" id="1_block"]
+
+[resource]
+script = ExtResource("1_block")
+id = "example_cover_block"
+display_name = "示例掩体模块"
+block_type = 0
+rarity = 1
+size = Vector2i(1, 1)
+max_hp = 180
+tags = Array[String](["cover", "armor"])

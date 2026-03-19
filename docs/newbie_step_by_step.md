@@ -131,3 +131,24 @@ print(grid)
    - 在改装 UI 退出时强制弹窗确认武器组。
 4. **不做基础校验**
    - 拼装前先 `can_place_block`，合成前先 `can_synthesize`。
+
+
+## 7. 现成示例资源（建议先打开看）
+
+项目已经提供了 5 个可直接查看的示例方块资源：
+
+- `res://resources/examples/blocks/example_cover_block.tres`
+- `res://resources/examples/blocks/example_turret_block.tres`
+- `res://resources/examples/blocks/example_thruster_block.tres`
+- `res://resources/examples/blocks/example_core_block.tres`
+- `res://resources/examples/blocks/example_special_block.tres`
+
+并且每个主场景右侧都挂了一个“示例方块卡片”，会自动读取对应的 `BlockData`：
+
+- `main_menu.tscn` -> 核心示例
+- `systems_scene.tscn` -> 掩体示例
+- `map_scene.tscn` -> 推进器示例
+- `battle_scene.tscn` -> 炮塔示例
+- `meta_scene.tscn` -> 特殊方块示例
+
+你可以先运行项目，点进各场景，看看一份 `BlockData` 资源是如何被 UI 读取并展示的。

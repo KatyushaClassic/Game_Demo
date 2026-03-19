@@ -60,3 +60,9 @@ bash tools/check_conflict_markers.sh
 - 主场景：`scenes/main_menu.tscn`
 - 启动后可通过 UI 按钮进入：系统场景、地图场景、战斗场景、局外成长场景
 
+## 示例方块资源
+
+- 示例方块资源目录：`resources/examples/blocks/`
+- 当前已提供 5 种方块类型的示例：掩体、炮塔、推进器、核心、特殊。
+- 每个主场景右侧都放了一个“示例方块卡片”，会直接读取对应 `BlockData` 资源并显示属性。
+
