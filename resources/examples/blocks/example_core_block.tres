@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BlockData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/block_data.gd" id="1_block"]
+
+[resource]
+script = ExtResource("1_block")
+id = "example_core_block"
+display_name = "示例起始核心"
+block_type = 3
+rarity = 0
+size = Vector2i(2, 2)
+max_hp = 500
+tags = Array[String](["core", "starter"])

@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://mapscene"]
+
+[ext_resource type="Script" path="res://scripts/ui/scene_nav.gd" id="1_nav"]
+[ext_resource type="Script" path="res://scripts/systems/map_generator.gd" id="2_map"]
+[ext_resource type="Script" path="res://scripts/ui/components/example_block_card.gd" id="3_card"]
+[ext_resource type="Resource" path="res://resources/examples/blocks/example_thruster_block.tres" id="4_thruster"]
+
+[node name="MapScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nav")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Menu" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HBox/Menu"]
+layout_mode = 2
+text = "地图场景（MapGenerator 已挂载）"
+
+[node name="Desc" type="Label" parent="HBox/Menu"]
+layout_mode = 2
+text = "该场景可用于以后展示杀戮尖塔式路线图。"
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="HBox/Menu"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="ExampleCard" type="PanelContainer" parent="HBox"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_card")
+block_data = ExtResource("4_thruster")
+
+[node name="Margin" type="MarginContainer" parent="HBox/ExampleCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HBox/ExampleCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+text = "示例方块"
+
+[node name="Body" type="RichTextLabel" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+scroll_active = false
+text = "加载中..."
+
+[node name="MapSystem" type="Node" parent="."]
+script = ExtResource("2_map")
+
+[connection signal="pressed" from="HBox/Menu/Back" to="." method="_on_back_pressed"]

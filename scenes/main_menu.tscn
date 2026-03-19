@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=3 uid="uid://mainmenu"]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_menu"]
+[ext_resource type="Script" path="res://scripts/ui/components/example_block_card.gd" id="2_card"]
+[ext_resource type="Resource" path="res://resources/examples/blocks/example_core_block.tres" id="3_core"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="MenuPanel" type="CenterContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="HBox/MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="HBox/MenuPanel/VBox"]
+layout_mode = 2
+text = "Ship Tower Roguelike - Main UI"
+horizontal_alignment = 1
+
+[node name="OpenSystems" type="Button" parent="HBox/MenuPanel/VBox"]
+layout_mode = 2
+text = "进入系统组装场景"
+
+[node name="OpenMap" type="Button" parent="HBox/MenuPanel/VBox"]
+layout_mode = 2
+text = "进入地图场景"
+
+[node name="OpenBattle" type="Button" parent="HBox/MenuPanel/VBox"]
+layout_mode = 2
+text = "进入战斗场景"
+
+[node name="OpenMeta" type="Button" parent="HBox/MenuPanel/VBox"]
+layout_mode = 2
+text = "进入局外成长场景"
+
+[node name="ExampleCard" type="PanelContainer" parent="HBox"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("2_card")
+block_data = ExtResource("3_core")
+
+[node name="Margin" type="MarginContainer" parent="HBox/ExampleCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HBox/ExampleCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+text = "示例方块"
+
+[node name="Body" type="RichTextLabel" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+scroll_active = false
+text = "加载中..."
+
+[connection signal="pressed" from="HBox/MenuPanel/VBox/OpenSystems" to="." method="_on_open_systems_pressed"]
+[connection signal="pressed" from="HBox/MenuPanel/VBox/OpenMap" to="." method="_on_open_map_pressed"]
+[connection signal="pressed" from="HBox/MenuPanel/VBox/OpenBattle" to="." method="_on_open_battle_pressed"]
+[connection signal="pressed" from="HBox/MenuPanel/VBox/OpenMeta" to="." method="_on_open_meta_pressed"]

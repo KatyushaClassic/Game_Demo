@@ -1,0 +1,90 @@
+[gd_scene load_steps=7 format=3 uid="uid://battlescene"]
+
+[ext_resource type="Script" path="res://scripts/ui/scene_nav.gd" id="1_nav"]
+[ext_resource type="Script" path="res://scripts/systems/ship_builder.gd" id="2_ship"]
+[ext_resource type="Script" path="res://scripts/systems/weapon_group_manager.gd" id="3_weapon"]
+[ext_resource type="Script" path="res://scripts/systems/special_module_manager.gd" id="4_special"]
+[ext_resource type="Script" path="res://scripts/ui/components/example_block_card.gd" id="5_card"]
+[ext_resource type="Resource" path="res://resources/examples/blocks/example_turret_block.tres" id="6_turret"]
+
+[node name="BattleScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nav")
+
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Menu" type="VBoxContainer" parent="HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HBox/Menu"]
+layout_mode = 2
+text = "战斗场景（船体/武器/特殊系统已挂载）"
+
+[node name="Desc" type="Label" parent="HBox/Menu"]
+layout_mode = 2
+text = "后续可在这里接入 WASD 操作、瞄准、武器组开火与技能按钮。"
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="HBox/Menu"]
+layout_mode = 2
+text = "返回主菜单"
+
+[node name="ExampleCard" type="PanelContainer" parent="HBox"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("5_card")
+block_data = ExtResource("6_turret")
+
+[node name="Margin" type="MarginContainer" parent="HBox/ExampleCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="HBox/ExampleCard/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+text = "示例方块"
+
+[node name="Body" type="RichTextLabel" parent="HBox/ExampleCard/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = true
+scroll_active = false
+text = "加载中..."
+
+[node name="ShipBuilderSystem" type="Node" parent="."]
+script = ExtResource("2_ship")
+
+[node name="WeaponSystem" type="Node" parent="."]
+script = ExtResource("3_weapon")
+
+[node name="SpecialSystem" type="Node" parent="."]
+script = ExtResource("4_special")
+
+[connection signal="pressed" from="HBox/Menu/Back" to="." method="_on_back_pressed"]

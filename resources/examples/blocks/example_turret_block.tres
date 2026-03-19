@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BlockData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/block_data.gd" id="1_block"]
+
+[resource]
+script = ExtResource("1_block")
+id = "example_turret_block"
+display_name = "示例火炮炮塔"
+block_type = 1
+rarity = 2
+size = Vector2i(1, 1)
+max_hp = 120
+tags = Array[String](["turret", "cannon"])
+turret_arc_deg = 120.0
+has_infinite_ammo = true
+max_ammo = 0
